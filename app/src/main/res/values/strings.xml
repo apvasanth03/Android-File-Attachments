@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">File Attachments</string>
+
+    <!-- Main Activity. -->
+    <string name="attach_file">Attach File</string>
+    <string name="user_permission_attach_file_explanation_message">To attach files, please allow access to storage.</string>
+    <string name="user_permission_settings">SETTINGS</string>
+    <string name="attachment_error_noApplicationToChooseFileErrorMessage">Unable to attach files from this phone</string>
+    <plurals name="attachment_error_failedToAttachFileErrorMessage">
+        <item quantity="one">Unable to attach file. Please try again.</item>
+        <item quantity="other">Unable to attach files. Please try again.</item>
+    </plurals>
+    <string name="attachment_loaderMessageWhileGettingAttachmentContent">Downloading...</string>
+
+</resources>
