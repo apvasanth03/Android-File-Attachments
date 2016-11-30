@@ -34,7 +34,7 @@ import java.util.List;
  * @author Vasanth
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, UserPermissionHelper.UserPermissionCallback,
-        FileAttachmentUtil.FileAttachmentCallback {
+        FileAttachmentUtil.FileAttachmentCallback, Attachment.AttachmentListener {
 
     private static final String TAG = "MainActivity";
     private static final int REQUEST_CODE_USER_PERMISSIONS_WRITE_STORAGE = 1;
@@ -90,6 +90,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.button_activityMain_attachFile) {
             checkIfWeHavePermissionToWriteStorage(false);
+        }
+    }
+
+    /**
+     * Attachment.AttachmentListener METHODS.
+     */
+    @Override
+    public void removeAttachment(Attachment attachment) {
+        // Remove attachment.
+        if (attachment != null) {
+            attachments.remove(attachment);
+            viewGroupAttachmentHolder.removeView(attachment.getAttachmentView());
         }
     }
 
@@ -191,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 attachments = new ArrayList<>();
                 for (AttachmentFileDetail attachmentFileDetail : attachmentFileDetails) {
                     if (attachmentFileDetail != null) {
-                        Attachment attachment = new Attachment(MainActivity.this, attachmentFileDetail, null);
+                        Attachment attachment = new Attachment(MainActivity.this, attachmentFileDetail, MainActivity.this);
                         attachments.add(attachment);
                     }
                 }
@@ -299,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getString(R.string.attachment_loaderMessageWhileGettingAttachmentContent));
+        progressDialog.setMessage(getString(R.string.attachment_loaderMessageWhileGettingAttachmentContent));
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
